@@ -1,0 +1,21 @@
+{
+    "concepts":[
+        {
+            "name": "string",
+            "description": "string",
+            "related_concepts": ["string"],
+            "constraints":{
+                "max_length": "number",
+                "min_length": "number"
+            },
+            "difficulty_level": "easy | medium | hard",
+            "common_misconceptions": ["string"],
+            "examples": [
+                {
+                    "example_description": "string",
+                    "code_snippet": "string"
+                }
+            ]
+        }
+    ]
+}

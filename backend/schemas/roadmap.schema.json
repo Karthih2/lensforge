@@ -1,0 +1,11 @@
+{
+    "phases":[
+        {
+            "duration":"string",
+            "focus":["string"],
+            "outcomes":["string"],
+            "resources":["string"],
+            "success_criteria":["string"]
+        }
+    ]
+}

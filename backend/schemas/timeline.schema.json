@@ -1,0 +1,13 @@
+{
+    "past": ["string"],
+    "present": ["string"],
+    "future": ["string"],
+    "milestones": [
+        {
+            "title": "string",
+            "description": "string",
+            "date": "string (ISO 8601 format)",
+            "tags": ["string"]
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "books": ["string"],
+    "articles": ["string"],
+    "videos": ["string"],
+    "websites": ["string"],
+    "tools": ["string"],
+    "papers": ["string"],
+    "difficulty_level": "beginner | intermediate | advanced",
+    "free_or_paid": "free | paid | both"
+}

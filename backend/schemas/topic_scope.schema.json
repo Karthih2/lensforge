@@ -1,0 +1,11 @@
+{
+    "topic": "string",
+    "scope": {
+        "included": ["string"],
+        "excluded": ["string"],
+        "audience": "beginner | intermediate | advanced",
+        "constraints": ["string"],
+        "assumptions": ["string"],
+        "prerequisites": ["string"]
+    }
+}

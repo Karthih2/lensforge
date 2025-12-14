@@ -1,0 +1,16 @@
+{
+    "debates":[
+        {
+            "id": "string",
+            "title": "string",
+            "description": "string",
+            "pro_arguments": ["string"],
+            "con_arguments": ["string"],
+            "status": "open | closed | pending",
+            "created_at": "ISO 8601 date string",
+            "updated_at": "ISO 8601 date string",
+            "stakeholders": ["string"],
+            "impact_level": "low | medium | high"
+        }
+    ]
+}
