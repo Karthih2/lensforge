@@ -1,17 +1,69 @@
-def debate_agent(topic, timeline_output):
-    return {
-        "debates": [
+import json
+from backend.llm.client import client
+from backend.utils.extract_first_json import extract_first_json
+
+MODEL = "llama-3.1-8b-instant"
+TEMPERATURE = 0.0
+
+
+def debate_agent(topic: str, timeline_output: dict) -> dict:
+    prompt = f"""
+You are an expert analyst identifying key debates in a technical field.
+
+Rules:
+- Output VALID JSON only
+- No explanations or text outside JSON
+- Base debates on historical, present, and future tensions
+- Debates must be relevant to learners and practitioners
+
+Schema:
+{{
+  "debates": [
+    {{
+      "id": "string",
+      "title": "string",
+      "description": "string",
+      "pro_arguments": ["string"],
+      "con_arguments": ["string"],
+      "status": "open | resolved | emerging",
+      "created_at": "string (ISO 8601)",
+      "updated_at": "string (ISO 8601)",
+      "stakeholders": ["string"],
+      "impact_level": "low | medium | high"
+    }}
+  ]
+}}
+
+Topic:
+{topic}
+
+Timeline:
+{json.dumps(timeline_output)}
+"""
+
+    response = client.chat.completions.create(
+        model=MODEL,
+        messages=[
             {
-                "id": "debate1",
-                "title": "Interpretability vs Performance",
-                "description": "Should models prioritize explainability over accuracy?",
-                "pro_arguments": ["Explainable models are safer", "Better for regulation"],
-                "con_arguments": ["Accuracy is more important for predictions", "Black-box models are practical"],
-                "status": "open",
-                "created_at": "2025-12-14T12:00:00Z",
-                "updated_at": "2025-12-14T12:00:00Z",
-                "stakeholders": ["Data Scientists", "Regulators"],
-                "impact_level": "high"
+                "role": "system",
+                "content": "You are a debate synthesis engine. Output JSON only."
+            },
+            {
+                "role": "user",
+                "content": prompt
             }
-        ]
-    }
+        ],
+        temperature=TEMPERATURE,
+        max_tokens=1500
+    )
+
+    raw = response.choices[0].message.content
+    json_text = extract_first_json(raw)
+
+    try:
+        return json.loads(json_text)
+    except json.JSONDecodeError as e:
+        raise ValueError(
+            "Debate Agent returned invalid JSON.\n"
+            f"RAW OUTPUT:\n{raw}"
+        ) from e
